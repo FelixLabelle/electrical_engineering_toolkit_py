@@ -1,6 +1,7 @@
 __author__ = 'Admin'
 
-import numpy
+import numpy as np
+import math
 import signal
 # http://docs.scipy.org/doc/scipy/reference/signal.html
 
@@ -27,7 +28,7 @@ def fitComponent(componentToFit, tolerance=5):
     [order, normalizedComponent] = normalizeComponent(componentToFit)
 
     index = int(np.floor(np.log10(normalizedComponent) * (len(E_val) - 1)))
-    print(E_val[index])
+    #print(E_val[index])
     if abs(E_val[index + 1] - normalizedComponent) < abs(E_val[index] - normalizedComponent):
         index = index + 1
     elif abs(E_val[index - 1] - normalizedComponent) < abs(E_val[index] - normalizedComponent):
@@ -45,5 +46,3 @@ def fitVoltageDivider(vcc, vout, current):
     rOut = vout / current
     rIn = rTotal - rOut
     return np.array([fitComponent(rIn), fitComponent(rOut)])
-
-
